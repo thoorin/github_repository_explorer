@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:github_repository_explorer/pages/components/navigation_row.dart';
 import 'package:github_repository_explorer/pages/components/repository_card.dart';
 import 'package:github_repository_explorer/pages/favorite_page/favorite_page_controller.dart'
     as controller;
@@ -32,28 +33,7 @@ class _FavoritePageState extends State<FavoritePage> {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  onTap: () async {
-                    await controller.searchNavigationButtonTapped(context);
-                  },
-                  child: const DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.blue),
-                    child: Icon(Icons.search, size: 100),
-                  ),
-                ),
-              ),
-              const Expanded(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(color: Colors.green),
-                  child: Icon(Icons.favorite_border, size: 100),
-                ),
-              ),
-            ],
-          ),
+          const NavigationRow(onSearchTapped: controller.searchNavigationButtonTapped),
         ],
       ),
     ),
