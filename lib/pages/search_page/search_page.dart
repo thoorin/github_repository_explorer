@@ -13,12 +13,23 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
+enum _State { initial, loading, loaded, noResult }
+
 class _SearchPageState extends State<SearchPage> {
+  _State state = _State.initial;
   List<RepositoryModel> repositories = [];
   Future<void> searchRepositories(String value) async {
+    setState(() {
+      state = _State.loading;
+    });
     final result = await github_api.searchRepositories(value);
     setState(() {
       repositories = result.repositories;
+      if (repositories.isEmpty) {
+        state = _State.noResult;
+      } else {
+        state = _State.loaded;
+      }
     });
   }
 
@@ -28,18 +39,45 @@ class _SearchPageState extends State<SearchPage> {
     body: SafeArea(
       child: Column(
         children: [
+          const Text(
+            'Search Repositories',
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: <Widget>[
-                  SearchBar(onSubmitted: searchRepositories),
-                  for (final repository in repositories) RepositoryCard(repository, () {}),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: SearchBar(onSubmitted: searchRepositories),
+                  ),
+                  if (state == _State.noResult)
+                    const Padding(
+                      padding: EdgeInsets.all(30),
+                      child: Text(
+                        'No repositories found for given query.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )
+                  else if (state == _State.loading)
+                    const Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 32),
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  else
+                    for (final repository in repositories) RepositoryCard(repository, () {}),
                 ],
               ),
             ),
           ),
-          const NavigationRow(onFavoritesTapped: controller.favoritesNavigationButtonTapped),
+          const NavigationRow(
+            isSearchSelected: true,
+            onFavoritesTapped: controller.favoritesNavigationButtonTapped,
+          ),
         ],
       ),
     ),
