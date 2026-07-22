@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:github_repository_explorer/pages/favorite_page/favorite_page.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -33,9 +34,16 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
               Expanded(
-                child: Container(
-                  decoration: const BoxDecoration(color: Colors.green),
-                  child: const Icon(Icons.favorite_border, size: 100),
+                child: GestureDetector(
+                  onTap: () async {
+                    await Navigator.of(context).pushReplacement(
+                      MaterialPageRoute<void>(builder: (context) => const FavoritePage()),
+                    );
+                  },
+                  child: Container(
+                    decoration: const BoxDecoration(color: Colors.green),
+                    child: const Icon(Icons.favorite_border, size: 100),
+                  ),
                 ),
               ),
             ],
