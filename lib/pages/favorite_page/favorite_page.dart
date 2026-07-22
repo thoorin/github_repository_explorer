@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_repository_explorer/pages/components/repository_card.dart';
-import 'package:github_repository_explorer/pages/search_page/search_page.dart';
+import 'package:github_repository_explorer/pages/favorite_page/favorite_page_controller.dart'
+    as controller;
 import 'package:github_repository_explorer/storage.dart' as storage;
 
 class FavoritePage extends StatefulWidget {
@@ -37,9 +38,7 @@ class _FavoritePageState extends State<FavoritePage> {
               Expanded(
                 child: GestureDetector(
                   onTap: () async {
-                    await Navigator.of(context).pushReplacement(
-                      MaterialPageRoute<void>(builder: (context) => const SearchPage()),
-                    );
+                    await controller.searchNavigationButtonTapped(context);
                   },
                   child: const DecoratedBox(
                     decoration: BoxDecoration(color: Colors.blue),

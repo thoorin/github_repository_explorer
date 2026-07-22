@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_repository_explorer/api/github_models.dart';
-import 'package:github_repository_explorer/storage.dart' as storage;
+import 'package:github_repository_explorer/pages/detail_page/detail_page_controller.dart'
+    as controller;
 
 class DetailPage extends StatefulWidget {
   const DetailPage({required this.repository, super.key});
@@ -25,11 +26,7 @@ class _DetailPageState extends State<DetailPage> {
     floatingActionButton: FloatingActionButton(
       child: const Icon(Icons.favorite_border),
       onPressed: () {
-        if (storage.favorites.contains(widget.repository)) {
-          storage.favorites.remove(widget.repository);
-        } else {
-          storage.favorites.add(widget.repository);
-        }
+        controller.favoritesButtonTapped(widget.repository);
       },
     ),
     body: SafeArea(
