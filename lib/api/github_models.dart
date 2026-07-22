@@ -22,8 +22,8 @@ List<RepositoryModel> repositoriesFromJson(String jsonString) {
     final int forksCount = item['forks_count'];
     final int openIssuesCount = item['open_issues_count'];
     final int starsCount = item['stargazers_count'];
-    final String description = item['description'];
-    final String primaryLanguage = item['language'];
+    final String description = item['description'] ?? '';
+    final String primaryLanguage = item['language'] ?? '';
     final String url = item['url'];
     repositories.add((
       name: name,
