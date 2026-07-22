@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:github_repository_explorer/api/github_models.dart';
+import 'package:github_repository_explorer/storage.dart' as storage;
 
 class DetailPage extends StatefulWidget {
-  const DetailPage({super.key});
+  const DetailPage({super.key, required this.repository});
+
+  final RepositoryModel repository;
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -10,29 +14,54 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(),
+    appBar: AppBar(
+      leading: GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: const Icon(Icons.arrow_back),
+      ),
+    ),
+    floatingActionButton: FloatingActionButton(
+      child: const Icon(Icons.favorite_border),
+      onPressed: () {
+        if (storage.favorites.contains(widget.repository)) {
+          storage.favorites.remove(widget.repository);
+        } else {
+          storage.favorites.add(widget.repository);
+        }
+      },
+    ),
     body: SafeArea(
       child: Column(
         children: [
-          const Expanded(
+          Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[Text('FavoritePage')],
+                children: <Widget>[
+                  Text(
+                    widget.repository.name,
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  Text('by ${widget.repository.ownerName}', style: const TextStyle(fontSize: 16)),
+                  Text(
+                    widget.repository.primaryLanguage,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(widget.repository.starsCount.toString()),
+                      Text(widget.repository.forksCount.toString()),
+                      Text(widget.repository.openIssuesCount.toString()),
+                    ],
+                  ),
+                  Text(widget.repository.url),
+                  Text(widget.repository.description),
+                ],
               ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(color: Colors.blue),
-              child: const Icon(Icons.search, size: 100),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(color: Colors.green),
-              child: const Icon(Icons.favorite_border, size: 100),
             ),
           ),
         ],
