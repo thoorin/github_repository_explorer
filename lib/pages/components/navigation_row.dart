@@ -1,31 +1,70 @@
 import 'package:flutter/material.dart';
 
-class NavigationRow extends StatelessWidget {
-  const NavigationRow({super.key, this.onFavoritesTapped, this.onSearchTapped});
+const MaterialColor selectedColor = Colors.purple;
+const MaterialColor unselectedColor = Colors.red;
 
+class NavigationRow extends StatelessWidget {
+  const NavigationRow({
+    required this.isSearchSelected,
+    super.key,
+    this.onFavoritesTapped,
+    this.onSearchTapped,
+  });
+
+  final bool isSearchSelected;
   final Function(BuildContext)? onSearchTapped;
   final Function(BuildContext)? onFavoritesTapped;
 
   @override
-  Widget build(BuildContext context) => Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
+  Widget build(BuildContext context) => Stack(
     children: [
-      Expanded(
-        child: GestureDetector(
-          onTap: () async {
-            await onSearchTapped?.call(context);
-          },
-          child: const DecoratedBox(
-            decoration: BoxDecoration(color: Colors.blue),
-            child: Icon(Icons.search, size: 100),
-          ),
+      Container(height: 50, decoration: const BoxDecoration(color: unselectedColor)),
+      Positioned(
+        bottom: 0,
+        child: Container(
+          height: 50,
+          width: 1000,
+          decoration: const BoxDecoration(color: selectedColor),
         ),
       ),
-      const Expanded(
-        child: DecoratedBox(
-          decoration: BoxDecoration(color: Colors.green),
-          child: Icon(Icons.favorite_border, size: 100),
-        ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onTap: () async {
+                await onSearchTapped?.call(context);
+              },
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: isSearchSelected ? selectedColor : unselectedColor,
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
+                ),
+                child: const Icon(Icons.search, size: 100),
+              ),
+            ),
+          ),
+          Expanded(
+            child: GestureDetector(
+              onTap: () async {
+                await onFavoritesTapped?.call(context);
+              },
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: isSearchSelected ? unselectedColor : selectedColor,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    bottomLeft: Radius.circular(16),
+                  ),
+                ),
+                child: const Icon(Icons.favorite_border, size: 100),
+              ),
+            ),
+          ),
+        ],
       ),
     ],
   );
