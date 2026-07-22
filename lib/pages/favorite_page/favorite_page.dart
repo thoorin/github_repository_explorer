@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:github_repository_explorer/pages/components/repository_card.dart';
 import 'package:github_repository_explorer/pages/search_page/search_page.dart';
+import 'package:github_repository_explorer/storage.dart' as storage;
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
@@ -15,12 +17,18 @@ class _FavoritePageState extends State<FavoritePage> {
     body: SafeArea(
       child: Column(
         children: [
-          const Expanded(
+          Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[Text('FavoritePage')],
+                children: <Widget>[
+                  const Text('FavoritePage'),
+                  for (final repo in storage.favorites)
+                    RepositoryCard(repo, () {
+                      setState(() {});
+                    }),
+                ],
               ),
             ),
           ),
