@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_repository_explorer/api/github_api.dart' as github_api;
 import 'package:github_repository_explorer/api/github_models.dart';
-import 'package:github_repository_explorer/pages/detail_page/detail_page.dart';
+import 'package:github_repository_explorer/pages/components/repository_card.dart';
 import 'package:github_repository_explorer/pages/favorite_page/favorite_page.dart';
 
 class SearchPage extends StatefulWidget {
@@ -33,61 +33,7 @@ class _SearchPageState extends State<SearchPage> {
               child: ListView(
                 children: <Widget>[
                   SearchBar(onSubmitted: getRepos),
-                  for (final repo in repositories)
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: GestureDetector(
-                        onTap: () async {
-                          await Navigator.of(context).pushReplacement(
-                            MaterialPageRoute<void>(builder: (context) => const DetailPage()),
-                          );
-                        },
-                        child: Container(
-                          decoration: const BoxDecoration(color: Colors.black12),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        repo.primaryLanguage,
-                                        style: const TextStyle(fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    Icon(Icons.star),
-                                    Text(repo.starsCount.toString()),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      repo.name,
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      'by ${repo.ownerName}',
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                    Text(repo.description, maxLines: 1),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                  for (final repo in repositories) RepositoryCard(repo, () {}),
                 ],
               ),
             ),
