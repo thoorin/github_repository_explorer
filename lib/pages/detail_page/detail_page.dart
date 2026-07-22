@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github_repository_explorer/api/github_models.dart';
-import 'package:github_repository_explorer/pages/detail_page/detail_page_controller.dart'
-    as controller;
+import 'package:github_repository_explorer/storage.dart' as storage;
 
 class DetailPage extends StatefulWidget {
   const DetailPage({required this.repository, super.key});
@@ -13,6 +12,14 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  late bool alreadyInFavorites;
+
+  @override
+  void initState() {
+    alreadyInFavorites = storage.favorites.contains(widget.repository);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -24,9 +31,16 @@ class _DetailPageState extends State<DetailPage> {
       ),
     ),
     floatingActionButton: FloatingActionButton(
-      child: const Icon(Icons.favorite_border),
+      child: alreadyInFavorites ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
       onPressed: () {
-        controller.favoritesButtonTapped(widget.repository);
+        if (alreadyInFavorites) {
+          storage.favorites.remove(widget.repository);
+        } else {
+          storage.favorites.add(widget.repository);
+        }
+        setState(() {
+          alreadyInFavorites = !alreadyInFavorites;
+        });
       },
     ),
     body: SafeArea(
