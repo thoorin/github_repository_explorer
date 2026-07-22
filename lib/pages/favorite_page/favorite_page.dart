@@ -19,9 +19,8 @@ class _FavoritePageState extends State<FavoritePage> {
         children: [
           Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   const Text('FavoritePage'),
                   for (final repo in storage.favorites)
@@ -42,16 +41,16 @@ class _FavoritePageState extends State<FavoritePage> {
                       MaterialPageRoute<void>(builder: (context) => const SearchPage()),
                     );
                   },
-                  child: Container(
-                    decoration: const BoxDecoration(color: Colors.blue),
-                    child: const Icon(Icons.search, size: 100),
+                  child: const DecoratedBox(
+                    decoration: BoxDecoration(color: Colors.blue),
+                    child: Icon(Icons.search, size: 100),
                   ),
                 ),
               ),
-              Expanded(
-                child: Container(
-                  decoration: const BoxDecoration(color: Colors.green),
-                  child: const Icon(Icons.favorite_border, size: 100),
+              const Expanded(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: Colors.green),
+                  child: Icon(Icons.favorite_border, size: 100),
                 ),
               ),
             ],

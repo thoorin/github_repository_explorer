@@ -3,7 +3,7 @@ import 'package:github_repository_explorer/api/github_models.dart';
 import 'package:github_repository_explorer/storage.dart' as storage;
 
 class DetailPage extends StatefulWidget {
-  const DetailPage({super.key, required this.repository});
+  const DetailPage({required this.repository, super.key});
 
   final RepositoryModel repository;
 
@@ -39,7 +39,6 @@ class _DetailPageState extends State<DetailPage> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     widget.repository.name,

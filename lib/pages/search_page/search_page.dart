@@ -13,9 +13,8 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   List<RepositoryModel> repositories = [];
-  getRepos(String value) async {
+  Future<void> searchRepositories(String value) async {
     final result = await github_api.searchRepositories(value);
-    print(result);
     setState(() {
       repositories = result.repositories;
     });
@@ -32,8 +31,8 @@ class _SearchPageState extends State<SearchPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: <Widget>[
-                  SearchBar(onSubmitted: getRepos),
-                  for (final repo in repositories) RepositoryCard(repo, () {}),
+                  SearchBar(onSubmitted: searchRepositories),
+                  for (final repository in repositories) RepositoryCard(repository, () {}),
                 ],
               ),
             ),
@@ -41,10 +40,10 @@ class _SearchPageState extends State<SearchPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Expanded(
-                child: Container(
-                  decoration: const BoxDecoration(color: Colors.blue),
-                  child: const Icon(Icons.search, size: 100),
+              const Expanded(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: Colors.blue),
+                  child: Icon(Icons.search, size: 100),
                 ),
               ),
               Expanded(
@@ -54,9 +53,9 @@ class _SearchPageState extends State<SearchPage> {
                       MaterialPageRoute<void>(builder: (context) => const FavoritePage()),
                     );
                   },
-                  child: Container(
-                    decoration: const BoxDecoration(color: Colors.green),
-                    child: const Icon(Icons.favorite_border, size: 100),
+                  child: const DecoratedBox(
+                    decoration: BoxDecoration(color: Colors.green),
+                    child: Icon(Icons.favorite_border, size: 100),
                   ),
                 ),
               ),

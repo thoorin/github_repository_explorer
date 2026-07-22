@@ -3,9 +3,11 @@ import 'package:github_repository_explorer/api/github_models.dart';
 import 'package:github_repository_explorer/pages/detail_page/detail_page.dart';
 
 class RepositoryCard extends StatelessWidget {
-  const RepositoryCard(this.repo, this.onReturned);
-  final RepositoryModel repo;
-  final Function onReturned;
+  const RepositoryCard(this.repository, this.onReturned, {super.key});
+
+  final RepositoryModel repository;
+  final VoidCallback onReturned;
+
   @override
   Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.all(16),
@@ -13,10 +15,10 @@ class RepositoryCard extends StatelessWidget {
       onTap: () async {
         await Navigator.of(
           context,
-        ).push(MaterialPageRoute<void>(builder: (context) => DetailPage(repository: repo)));
+        ).push(MaterialPageRoute<void>(builder: (context) => DetailPage(repository: repository)));
         onReturned();
       },
-      child: Container(
+      child: DecoratedBox(
         decoration: const BoxDecoration(color: Colors.black12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,12 +30,12 @@ class RepositoryCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      repo.primaryLanguage,
+                      repository.primaryLanguage,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Icon(Icons.star),
-                  Text(repo.starsCount.toString()),
+                  const Icon(Icons.star),
+                  Text(repository.starsCount.toString()),
                 ],
               ),
             ),
@@ -43,11 +45,11 @@ class RepositoryCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    repo.name,
+                    repository.name,
                     style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  Text('by ${repo.ownerName}', style: const TextStyle(fontSize: 16)),
-                  Text(repo.description, maxLines: 1),
+                  Text('by ${repository.ownerName}', style: const TextStyle(fontSize: 16)),
+                  Text(repository.description, maxLines: 1),
                 ],
               ),
             ),
