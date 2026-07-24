@@ -66,3 +66,26 @@ To run tests:
 ```bash
 flutter test
 ```
+
+## Technical Decisions & Future Improvements
+
+### 1. How did you handle state management and why?
+For the purpose of this assignment, I chose a combination of **`setState`** for local screen states (e.g., loading states, search results) and a **global list** in `storage.dart` for managing favorites.
+- **Why?** For an application of this scale, it is the simplest and fastest approach that doesn't require additional dependencies.
+
+### 2. How would you modify the app to work offline?
+In the current version, data (including favorites) is only kept in memory. For offline support, I would:
+- Implement a local database (e.g., **sqflite** or **Hive**) to persist favorites.
+- Add caching for search results (Visited Repositories section) so the user can see recent results even without a network connection.
+- Add a visual indicator for the connection status.
+
+### 3. How would you handle result pagination?
+The GitHub API supports `page` and `per_page` parameters. I would implement pagination as follows:
+- Add **"Previous"** and **"Next"** buttons at the bottom and the top of the results list.
+- Maintain a `currentPage` variable in the state and display it between the "Previous" and "Next" buttons.
+- When a button is pressed, increment or decrement the `currentPage`, trigger a new API request with the updated page parameter, and replace the current results with the new ones.
+- Disable the "Previous" button when on the first page and the "Next" button if the last response returned fewer items than expected (indicating the last page).
+
+### 4. Which part of the solution do you consider the most important technical decision?
+I consider the **utilization of Dart Records for API responses** to be a key technical decision.
+- **Why?** Instead of creating verbose wrapper classes or using untyped `Map` objects, I used Dart 3.0 Records (e.g., `SearchRepositoryResponse`). This allows for type-safe, multiple-return values directly from API calls. It makes the code more expressive and significantly reduces boilerplate when passing both data and status codes from the API layer to the UI, leading to cleaner and more maintainable business logic.
