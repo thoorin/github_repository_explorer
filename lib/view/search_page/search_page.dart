@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:github_repository_explorer/api/github_api.dart' as github_api;
 import 'package:github_repository_explorer/api/github_models.dart';
-import 'package:github_repository_explorer/pages/components/navigation_row.dart';
-import 'package:github_repository_explorer/pages/components/repository_card.dart';
-import 'package:github_repository_explorer/pages/search_page/search_page_controller.dart'
+import 'package:github_repository_explorer/api/github_responses.dart';
+import 'package:github_repository_explorer/view/components/navigation_row.dart';
+import 'package:github_repository_explorer/view/components/repository_card.dart';
+import 'package:github_repository_explorer/view/search_page/search_page_controller.dart'
     as controller;
 
 class SearchPage extends StatefulWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:github_repository_explorer/pages/components/navigation_row.dart';
-import 'package:github_repository_explorer/pages/components/repository_card.dart';
-import 'package:github_repository_explorer/pages/favorite_page/favorites_page_controller.dart'
-    as controller;
 import 'package:github_repository_explorer/storage.dart' as storage;
+import 'package:github_repository_explorer/view/components/navigation_row.dart';
+import 'package:github_repository_explorer/view/components/repository_card.dart';
+import 'package:github_repository_explorer/view/favorite_page/favorites_page_controller.dart'
+    as controller;
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
