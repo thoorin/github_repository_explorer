@@ -14,19 +14,24 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
-enum _State { initial, loading, loaded, noResult }
+enum _State { initial, loading, loaded, noResult, error }
 
 class _SearchPageState extends State<SearchPage> {
   _State state = _State.initial;
   List<RepositoryModel> repositories = [];
+  String lastQuery = '';
+
   Future<void> searchRepositories(String value) async {
+    lastQuery = value;
     setState(() {
       state = _State.loading;
     });
     final result = await github_api.searchRepositories(value);
     setState(() {
       repositories = result.repositories;
-      if (repositories.isEmpty) {
+      if (result.statusCode != SearchRepositoryStatusCode.ok) {
+        state = _State.error;
+      } else if (repositories.isEmpty) {
         state = _State.noResult;
       } else {
         state = _State.loaded;
@@ -53,7 +58,26 @@ class _SearchPageState extends State<SearchPage> {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: SearchBar(onSubmitted: searchRepositories),
                   ),
-                  if (state == _State.noResult)
+                  if (state == _State.error)
+                    Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(30),
+                          child: Text(
+                            'Something went wrong',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            await searchRepositories(lastQuery);
+                          },
+                          child: const Text('Try again'),
+                        ),
+                      ],
+                    )
+                  else if (state == _State.noResult)
                     const Padding(
                       padding: EdgeInsets.all(30),
                       child: Text(
