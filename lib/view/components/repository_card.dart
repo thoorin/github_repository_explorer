@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github_repository_explorer/api/github_models.dart';
-import 'package:github_repository_explorer/pages/detail_page/detail_page.dart';
+import 'package:github_repository_explorer/view/detail_page/detail_page.dart';
 
 class RepositoryCard extends StatelessWidget {
   const RepositoryCard(this.repository, this.onReturned, {super.key});
