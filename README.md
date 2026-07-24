@@ -76,7 +76,7 @@ For the purpose of this assignment, I chose a combination of **`setState`** for 
 
 ### 2. How would you modify the app to work offline?
 Currently, favorites are persisted locally using **`shared_preferences`**. For full offline support, I would:
-- Implement a more robust local database (e.g., **sqflite** or **Hive**) for large datasets.
+- Implement a more robust local database (e.g., **SQLite** or **Hive**) for large datasets.
 - Add caching for search results (Visited Repositories section) so the user can see recent results even without a network connection.
 - Add a visual indicator for the connection status.
 
