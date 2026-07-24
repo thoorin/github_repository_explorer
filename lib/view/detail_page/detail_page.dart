@@ -49,28 +49,39 @@ class _DetailPageState extends State<DetailPage> {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: <Widget>[
                   Text(
                     widget.repository.name,
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
-                  Text('by ${widget.repository.ownerName}', style: const TextStyle(fontSize: 16)),
+                  Text('by ${widget.repository.ownerName}', style: const TextStyle(fontSize: 20)),
                   Text(
                     widget.repository.primaryLanguage,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(widget.repository.starsCount.toString()),
-                      Text(widget.repository.forksCount.toString()),
-                      Text(widget.repository.openIssuesCount.toString()),
-                    ],
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.star_border),
+                        Expanded(child: Text(widget.repository.starsCount.toString())),
+                        const Icon(Icons.call_split),
+                        Expanded(child: Text(widget.repository.forksCount.toString())),
+                        const Icon(Icons.circle_outlined),
+                        Text(widget.repository.openIssuesCount.toString()),
+                      ],
+                    ),
                   ),
-                  Text(widget.repository.url),
-                  Text(widget.repository.description),
+                  const SizedBox(height: 20),
+                  Text(
+                    widget.repository.url,
+                    style: const TextStyle(decoration: TextDecoration.underline, fontSize: 16),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(widget.repository.description, style: const TextStyle(fontSize: 16)),
                 ],
               ),
             ),

@@ -24,14 +24,14 @@ class RepositoryCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: Text(
                       repository.primaryLanguage,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   ),
                   const Icon(Icons.star),
@@ -46,9 +46,9 @@ class RepositoryCard extends StatelessWidget {
                 children: [
                   Text(
                     repository.name,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                  Text('by ${repository.ownerName}', style: const TextStyle(fontSize: 16)),
+                  Text('by ${repository.ownerName}', style: const TextStyle(fontSize: 18)),
                   Text(repository.description, maxLines: 1),
                 ],
               ),

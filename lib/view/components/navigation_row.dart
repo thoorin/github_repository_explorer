@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const MaterialColor selectedColor = Colors.purple;
-const MaterialColor unselectedColor = Colors.red;
+const selectedColor = Color.fromRGBO(140, 140, 140, 255);
+const unselectedColor = Color.fromRGBO(200, 200, 200, 255);
 
 class NavigationRow extends StatelessWidget {
   const NavigationRow({
