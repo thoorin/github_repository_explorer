@@ -68,7 +68,7 @@ To run tests:
 flutter test
 ```
 
-## Technical Decisions & Future Improvements
+## Technical Decisions
 
 ### 1. How did you handle state management and why?
 For the purpose of this assignment, I chose a combination of **`setState`** for local screen states (e.g., loading states, search results) and a **global list** in `storage.dart` for managing favorites.
@@ -90,3 +90,13 @@ The GitHub API supports `page` and `per_page` parameters. I would implement pagi
 ### 4. Which part of the solution do you consider the most important technical decision?
 I consider the **utilization of Dart Records for API responses** to be a key technical decision.
 - **Why?** Instead of creating verbose wrapper classes or using untyped `Map` objects, I used Dart 3.0 Records (e.g., `SearchRepositoryResponse`). This allows for type-safe, multiple-return values directly from API calls. It makes the code more expressive and significantly reduces boilerplate when passing both data and status codes from the API layer to the UI, leading to cleaner and more maintainable business logic.
+
+## Improvements
+
+- **`UI improvements`**: Review and improve paddings, elements' sizes, colors and other visual aspects
+- **`Extract hardcoded strings`**: All the texts are hardcoded, that would make it much harder if we were to introduce localizations. Therefore, it would be beneficial to put those into one place.
+- **`Reduce data duplicities`**: There are many duplicities, especially between text sizes, that makes it really easy to introduce inconsistencies in design and make it harder to change.
+- **`Assertive programming`**: Analyze inputs of functions, predict possible issues and handle them. Consider also post conditions to functions where it makes sense.
+- **`Analytics`**: Introduce analytics and crashlytics.
+- **`Auto-generate models utility functions`**: Now for each new model, there has to be manually added toMap and fromMap function. It would be much better if that would be generated automatically, it seems that for such case the code_builder (https://github.com/dart-archive/code_builder) might be the answer.
+
