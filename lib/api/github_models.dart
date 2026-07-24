@@ -39,3 +39,25 @@ List<RepositoryModel> repositoriesFromJson(String jsonString) {
 
   return repositories;
 }
+
+Map<String, dynamic> repositoryToMap(RepositoryModel repository) => {
+  'name': repository.name,
+  'ownerName': repository.ownerName,
+  'forksCount': repository.forksCount,
+  'openIssuesCount': repository.openIssuesCount,
+  'starsCount': repository.starsCount,
+  'description': repository.description,
+  'primaryLanguage': repository.primaryLanguage,
+  'url': repository.url,
+};
+
+RepositoryModel repositoryFromMap(Map<String, dynamic> map) => (
+  name: map['name'] as String,
+  ownerName: map['ownerName'] as String,
+  forksCount: map['forksCount'] as int,
+  openIssuesCount: map['openIssuesCount'] as int,
+  starsCount: map['starsCount'] as int,
+  description: map['description'] as String,
+  primaryLanguage: map['primaryLanguage'] as String,
+  url: map['url'] as String,
+);

@@ -32,12 +32,13 @@ class _DetailPageState extends State<DetailPage> {
     ),
     floatingActionButton: FloatingActionButton(
       child: alreadyInFavorites ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
-      onPressed: () {
+      onPressed: () async {
         if (alreadyInFavorites) {
           storage.favorites.remove(widget.repository);
         } else {
           storage.favorites.add(widget.repository);
         }
+        await storage.saveFavorites();
         setState(() {
           alreadyInFavorites = !alreadyInFavorites;
         });

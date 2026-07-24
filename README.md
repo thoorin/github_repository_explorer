@@ -10,7 +10,7 @@ A Flutter application for searching and exploring GitHub repositories. This proj
   - Star count
   - Description
   - Primary language
-- **Favorites Management**: Save repositories to a favorites list for quick access. (Note: In-memory storage is used for this version).
+- **Favorites Management**: Save repositories to a favorites list for quick access. Persisted locally using `shared_preferences`.
 - **Navigation**: Simple and intuitive navigation between Search and Favorites screens.
 
 ## Project Structure
@@ -56,6 +56,7 @@ flutter run
 ## Dependencies
 
 - **[http](https://pub.dev/packages/http)**: Used for making asynchronous requests to the GitHub Search API.
+- **[shared_preferences](https://pub.dev/packages/shared_preferences)**: Used for local persistence of the favorites list.
 
 ## Testing
 
@@ -74,8 +75,8 @@ For the purpose of this assignment, I chose a combination of **`setState`** for 
 - **Why?** For an application of this scale, it is the simplest and fastest approach that doesn't require additional dependencies.
 
 ### 2. How would you modify the app to work offline?
-In the current version, data (including favorites) is only kept in memory. For offline support, I would:
-- Implement a local database (e.g., **sqflite** or **Hive**) to persist favorites.
+Currently, favorites are persisted locally using **`shared_preferences`**. For full offline support, I would:
+- Implement a more robust local database (e.g., **sqflite** or **Hive**) for large datasets.
 - Add caching for search results (Visited Repositories section) so the user can see recent results even without a network connection.
 - Add a visual indicator for the connection status.
 

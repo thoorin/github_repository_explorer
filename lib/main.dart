@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:github_repository_explorer/view/search_page/search_page.dart';
+import 'package:github_repository_explorer/storage.dart' as storage;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await storage.loadFavorites();
   runApp(const App());
 }
 
